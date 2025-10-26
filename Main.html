@@ -31,35 +31,46 @@
             right: 1rem;
         }
         .preview-modal .modal-content {
-            max-width: 100%;
+            max-width: 800px;
             width: 90%;
         }
         .preview-images {
             position: relative;
-            width: 200px;
-            height: 150px;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .preview-images img {
             position: absolute;
             top: 0;
             left: 0;
-            width: 200px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            opacity: 0;
-            animation: fade 1.4s infinite;
+            display: none;
         }
-        .preview-images img:nth-child(1) { animation-delay: 0s; }
-        .preview-images img:nth-child(2) { animation-delay: 1.4s; }
-        .preview-images img:nth-child(3) { animation-delay: 2.8s; }
-        .preview-images img:nth-child(4) { animation-delay: 4.2s; }
-        .preview-images img:nth-child(5) { animation-delay: 5.6s; }
-        .preview-images img:nth-child(6) { animation-delay: 7s; }
-        .preview-images img:nth-child(7) { animation-delay: 8.4s; }
-        @keyframes fade {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
+        .preview-images img.active {
+            display: block;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10;
+        }
+        .arrow.left {
+            left: 10px;
+        }
+        .arrow.right {
+            right: 10px;
         }
         header p {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -262,13 +273,15 @@
             <span class="close" id="preview-close">&times;</span>
             <h2>Preview</h2>
             <div class="preview-images">
-                <img src="Model/Project Name.png" alt="Preview 1">
+                <button class="arrow left"><</button>
+                <img src="Model/Project Name.png" alt="Preview 1" class="active">
                 <img src="Model/Project Name (1).png" alt="Preview 2">
                 <img src="Model/Project Name (2).png" alt="Preview 3">
                 <img src="Model/Project Name (3).png" alt="Preview 4">
                 <img src="Model/Project Name (4).png" alt="Preview 5">
                 <img src="Model/Project Name (5).png" alt="Preview 6">
                 <img src="Model/Project Name (6).png" alt="Preview 7">
+                <button class="arrow right">></button>
             </div>
         </div>
     </div>
@@ -372,6 +385,28 @@
                 console.error(err);
                 resultElement.textContent = 'Camera access denied or not available.';
             });
+        });
+
+        // Slideshow functionality
+        const previewImages = document.querySelectorAll('.preview-images img');
+        const leftArrow = document.querySelector('.arrow.left');
+        const rightArrow = document.querySelector('.arrow.right');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            previewImages.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+        }
+
+        leftArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : previewImages.length - 1;
+            showImage(currentIndex);
+        });
+
+        rightArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex < previewImages.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
         });
     </script>
 </body>
