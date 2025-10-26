@@ -67,11 +67,16 @@
         const voltsElement = document.getElementById('volts');
         const endRunButton = document.getElementById('end-run');
 
+        let totalPoints = 0;
         const interval = setInterval(() => {
             points += 1;
-            volts = points * 1; // 1 volt per point
+            volts = points * 0.1; // 0.1 volt per point
             pointsElement.textContent = points;
             voltsElement.textContent = volts.toFixed(1);
+            if (volts >= 1.0) {
+                totalPoints += 1;
+                // You can add logic here to save totalPoints or display it
+            }
         }, 1000); // 1 point per second
 
         endRunButton.addEventListener('click', () => {

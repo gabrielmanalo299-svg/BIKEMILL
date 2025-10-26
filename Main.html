@@ -133,8 +133,7 @@
                     const scannedText = result.text;
                     if (scannedText.startsWith('bike')) {
                         const bikeNumber = scannedText.replace('bike', '');
-                        sessionStorage.setItem('bikeNumber', bikeNumber);
-                        window.location.reload();
+                        window.location.href = 'Bike' + bikeNumber + '.html';
                     } else {
                         resultElement.textContent = 'Scanned: ' + scannedText;
                     }
