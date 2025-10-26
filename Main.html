@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #000000;
             color: #333;
         }
         header {
@@ -32,12 +32,13 @@
         .section {
             margin-bottom: 2rem;
             padding: 1rem;
-            background-color: white;
+            background-color: #000000;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            border: 2px solid white;
         }
         h2 {
-            color: #007bff;
+            color: white;
         }
         .bike-list {
             display: flex;
@@ -105,11 +106,11 @@
     <div class="container">
         <section class="section qr-section" id="scan-qr">
             <h2>Scan QR Code</h2>
-            <p>Use your camera to scan a QR code to access a bike.</p>
+            <p style="color: white;">Use your camera to scan a QR code to access a bike.</p>
             <button id="start-scan">Start Scanning</button>
             <video id="video" autoplay style="display: none;"></video>
             <div id="scan-result"></div>
-            <p>Compatible with PC and mobile devices.</p>
+            <p style="color: white;">Compatible with PC and mobile devices.</p>
         </section>
 
     </div>
