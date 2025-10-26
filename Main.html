@@ -30,6 +30,37 @@
             top: 1rem;
             right: 1rem;
         }
+        .preview-section {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 200px;
+            height: 150px;
+            overflow: hidden;
+            border: 2px solid white;
+            border-radius: 8px;
+            background-color: #333;
+        }
+        .preview-images {
+            display: flex;
+            width: 1400px; /* 7 images * 200px */
+            animation: slide 10s infinite;
+        }
+        .preview-images img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            14.28% { transform: translateX(-200px); }
+            28.57% { transform: translateX(-400px); }
+            42.85% { transform: translateX(-600px); }
+            57.14% { transform: translateX(-800px); }
+            71.42% { transform: translateX(-1000px); }
+            85.71% { transform: translateX(-1200px); }
+            100% { transform: translateX(0); }
+        }
         header p {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             text-transform: uppercase;
@@ -187,6 +218,17 @@
 </head>
 <body>
     <header>
+        <div class="preview-section">
+            <div class="preview-images">
+                <img src="Model/Project Name.png" alt="Preview 1">
+                <img src="Model/Project Name (1).png" alt="Preview 2">
+                <img src="Model/Project Name (2).png" alt="Preview 3">
+                <img src="Model/Project Name (3).png" alt="Preview 4">
+                <img src="Model/Project Name (4).png" alt="Preview 5">
+                <img src="Model/Project Name (5).png" alt="Preview 6">
+                <img src="Model/Project Name (6).png" alt="Preview 7">
+            </div>
+        </div>
         <div class="logo-section">
             <img src="icon/Bikemill logo.jpg" alt="PEDALPOWER Logo" style="width: 300px; height: auto; margin-bottom: 0.5rem;">
             <p>Power to pedal your Desires</p>
