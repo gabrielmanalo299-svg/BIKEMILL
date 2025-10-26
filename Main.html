@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKEMILL</title>
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #007bff;
+        }
+        .bike-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .bike-item {
+            flex: 1 1 300px;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        .qr-section {
+            text-align: center;
+        }
+        #video {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ddd;
+            margin: 1rem auto;
+        }
+        #scan-result {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        #start-scan {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .bike-list {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BIKEMILL</h1>
+        <p>Your Exercise Bike Service</p>
+    </header>
+    <div class="container">
+        <section class="section qr-section" id="scan-qr">
+            <h2>Scan QR Code</h2>
+            <p>Use your camera to scan a QR code to access a bike.</p>
+            <button id="start-scan">Start Scanning</button>
+            <video id="video" autoplay style="display: none;"></video>
+            <div id="scan-result"></div>
+            <p>Compatible with PC and mobile devices.</p>
+        </section>
+
+    </div>
+    <script>
+        const codeReader = new ZXing.BrowserQRCodeReader();
+        const videoElement = document.getElementById('video');
+        const resultElement = document.getElementById('scan-result');
+        const startScanButton = document.getElementById('start-scan');
+
+        // Check if there's a bike to redirect to on page load
+        const bikeNumber = sessionStorage.getItem('bikeNumber');
+        if (bikeNumber) {
+            sessionStorage.removeItem('bikeNumber');
+            window.location.href = 'Bike' + bikeNumber + '.html';
+        }
+
+        startScanButton.addEventListener('click', () => {
+            videoElement.style.display = 'block';
+            startScanButton.style.display = 'none';
+            resultElement.textContent = 'Scanning...';
+
+            // Start scanning
+            codeReader.decodeFromVideoDevice(null, videoElement, (result, err) => {
+                if (result) {
+                    const scannedText = result.text;
+                    if (scannedText.startsWith('bike')) {
+                        const bikeNumber = scannedText.replace('bike', '');
+                        sessionStorage.setItem('bikeNumber', bikeNumber);
+                        window.location.reload();
+                    } else {
+                        resultElement.textContent = 'Scanned: ' + scannedText;
+                    }
+                }
+                if (err && !(err instanceof ZXing.NotFoundException)) {
+                    console.error(err);
+                }
+            }).catch(err => {
+                console.error(err);
+                resultElement.textContent = 'Camera access denied or not available.';
+            });
+        });
+    </script>
+</body>
+</html>

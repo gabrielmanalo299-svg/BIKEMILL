@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKEMILL - Bike 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007bff;
+        }
+        p {
+            font-size: 1.2rem;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BIKEMILL</h1>
+        <p>Bike 4</p>
+    </header>
+    <div class="container">
+        <h1>Bike 4</h1>
+        <p>Points: <span id="points">0</span></p>
+        <p>Volts Created: <span id="volts">0.0</span></p>
+        <button id="end-run">End Run</button>
+    </div>
+    <script>
+        let points = 0;
+        let volts = 0;
+        const pointsElement = document.getElementById('points');
+        const voltsElement = document.getElementById('volts');
+        const endRunButton = document.getElementById('end-run');
+
+        const interval = setInterval(() => {
+            points += 1;
+            volts = points * 1; // 1 volt per point
+            pointsElement.textContent = points;
+            voltsElement.textContent = volts.toFixed(1);
+        }, 1000); // 1 point per second
+
+        endRunButton.addEventListener('click', () => {
+            clearInterval(interval);
+            window.location.href = 'Main.html';
+        });
+    </script>
+</body>
+</html>
