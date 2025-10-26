@@ -131,12 +131,8 @@
             codeReader.decodeFromVideoDevice(null, videoElement, (result, err) => {
                 if (result) {
                     const scannedText = result.text;
-                    if (scannedText.startsWith('bike')) {
-                        const bikeNumber = scannedText.replace('bike', '');
-                        window.location.href = 'Bike' + bikeNumber + '.html';
-                    } else {
-                        resultElement.textContent = 'Scanned: ' + scannedText;
-                    }
+                    // Redirect to the URL in the QR code
+                    window.location.href = scannedText;
                 }
                 if (err && !(err instanceof ZXing.NotFoundException)) {
                     console.error(err);
