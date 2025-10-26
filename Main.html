@@ -131,8 +131,12 @@
             codeReader.decodeFromVideoDevice(null, videoElement, (result, err) => {
                 if (result) {
                     const scannedText = result.text;
-                    // Redirect to the URL in the QR code
-                    window.location.href = scannedText;
+                    // Display the scanned text as a link
+                    resultElement.innerHTML = 'Scanned: <a href="' + scannedText + '" target="_blank">' + scannedText + '</a>';
+                    // Automatically go to the link after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = scannedText;
+                    }, 2000);
                 }
                 if (err && !(err instanceof ZXing.NotFoundException)) {
                     console.error(err);
