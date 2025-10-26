@@ -30,16 +30,8 @@
             top: 1rem;
             right: 1rem;
         }
-        .preview-section {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            width: 200px;
-            height: 150px;
-            overflow: hidden;
-            border: 2px solid white;
-            border-radius: 8px;
-            background-color: #333;
+        .preview-modal .modal-content {
+            max-width: 600px;
         }
         .preview-images {
             display: flex;
@@ -218,22 +210,12 @@
 </head>
 <body>
     <header>
-        <div class="preview-section">
-            <div class="preview-images">
-                <img src="Model/Project Name.png" alt="Preview 1">
-                <img src="Model/Project Name (1).png" alt="Preview 2">
-                <img src="Model/Project Name (2).png" alt="Preview 3">
-                <img src="Model/Project Name (3).png" alt="Preview 4">
-                <img src="Model/Project Name (4).png" alt="Preview 5">
-                <img src="Model/Project Name (5).png" alt="Preview 6">
-                <img src="Model/Project Name (6).png" alt="Preview 7">
-            </div>
-        </div>
         <div class="logo-section">
             <img src="icon/Bikemill logo.jpg" alt="PEDALPOWER Logo" style="width: 300px; height: auto; margin-bottom: 0.5rem;">
             <p>Power to pedal your Desires</p>
         </div>
         <nav>
+            <button class="nav-button" id="preview-btn">Preview</button>
             <button class="nav-button">Sign In</button>
             <button class="nav-button">Log In</button>
         </nav>
@@ -266,6 +248,23 @@
         </div>
     </div>
 
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal preview-modal">
+        <div class="modal-content">
+            <span class="close" id="preview-close">&times;</span>
+            <h2>Preview</h2>
+            <div class="preview-images">
+                <img src="Model/Project Name.png" alt="Preview 1">
+                <img src="Model/Project Name (1).png" alt="Preview 2">
+                <img src="Model/Project Name (2).png" alt="Preview 3">
+                <img src="Model/Project Name (3).png" alt="Preview 4">
+                <img src="Model/Project Name (4).png" alt="Preview 5">
+                <img src="Model/Project Name (5).png" alt="Preview 6">
+                <img src="Model/Project Name (6).png" alt="Preview 7">
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <section class="section qr-section" id="scan-qr">
             <h2>Scan QR Code</h2>
@@ -286,12 +285,18 @@
         // Modal elements
         const signinModal = document.getElementById('signin-modal');
         const loginModal = document.getElementById('login-modal');
-        const signinBtn = document.querySelector('nav button:first-child');
-        const loginBtn = document.querySelector('nav button:last-child');
+        const previewModal = document.getElementById('preview-modal');
+        const previewBtn = document.getElementById('preview-btn');
+        const signinBtn = document.querySelector('nav button:nth-child(2)');
+        const loginBtn = document.querySelector('nav button:nth-child(3)');
         const signinClose = document.getElementById('signin-close');
         const loginClose = document.getElementById('login-close');
+        const previewClose = document.getElementById('preview-close');
 
         // Open modals
+        previewBtn.onclick = function() {
+            previewModal.style.display = 'block';
+        }
         signinBtn.onclick = function() {
             signinModal.style.display = 'block';
         }
@@ -300,6 +305,9 @@
         }
 
         // Close modals
+        previewClose.onclick = function() {
+            previewModal.style.display = 'none';
+        }
         signinClose.onclick = function() {
             signinModal.style.display = 'none';
         }
@@ -309,6 +317,9 @@
 
         // Close modal when clicking outside
         window.onclick = function(event) {
+            if (event.target == previewModal) {
+                previewModal.style.display = 'none';
+            }
             if (event.target == signinModal) {
                 signinModal.style.display = 'none';
             }
