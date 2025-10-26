@@ -131,12 +131,8 @@
             codeReader.decodeFromVideoDevice(null, videoElement, (result, err) => {
                 if (result) {
                     const scannedText = result.text;
-                    // Display the scanned text as a link
-                    resultElement.innerHTML = 'Scanned: <a href="' + scannedText + '" target="_blank">' + scannedText + '</a>';
-                    // Automatically go to the link after 2 seconds
-                    setTimeout(() => {
-                        window.location.href = scannedText;
-                    }, 2000);
+                    // Automatically go to the link
+                    window.location.href = scannedText;
                 }
                 if (err && !(err instanceof ZXing.NotFoundException)) {
                     console.error(err);
