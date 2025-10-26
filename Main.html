@@ -15,10 +15,20 @@
             color: #333;
         }
         header {
+            position: relative;
             background-color: #000000;
             color: white;
-            text-align: center;
             padding: 1rem;
+        }
+        header .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header nav {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
         }
         header p {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -47,9 +57,11 @@
         }
         .bike-item {
             flex: 1 1 300px;
-            border: 1px solid #ddd;
+            border: 2px solid white;
             padding: 1rem;
             border-radius: 4px;
+            background-color: #333;
+            color: white;
         }
         .qr-section {
             text-align: center;
@@ -88,6 +100,18 @@
                 box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
             }
         }
+        .nav-button {
+            background-color: #000000;
+            color: white;
+            border: 2px solid white;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
         /* Modal styles */
         .modal {
             display: none;
@@ -109,6 +133,10 @@
             width: 80%;
             max-width: 400px;
             color: white;
+            transition: transform 0.3s ease;
+        }
+        .modal-content:hover {
+            transform: scale(1.05);
         }
         .close {
             color: white;
@@ -128,6 +156,10 @@
             border-radius: 4px;
             background-color: #333;
             color: white;
+            transition: transform 0.3s ease;
+        }
+        input[type="email"]:hover, input[type="text"]:hover, input[type="password"]:hover {
+            transform: scale(1.05);
         }
         button[type="submit"] {
             background-color: #000000;
@@ -137,6 +169,10 @@
             cursor: pointer;
             width: 100%;
             border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            transform: scale(1.05);
         }
         @media (max-width: 768px) {
             .container {
@@ -150,16 +186,14 @@
 </head>
 <body>
     <header>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <img src="icon/Bikemill logo.jpg" alt="PEDALPOWER Logo" style="width: 300px; height: auto; margin-bottom: 0.5rem;">
-                <p>Power to pedal your Desires</p>
-            </div>
-            <nav>
-                <button style="background-color: #000000; color: white; border: 2px solid white; padding: 5px 10px; margin-left: 10px; cursor: pointer;">Sign In</button>
-                <button style="background-color: #000000; color: white; border: 2px solid white; padding: 5px 10px; margin-left: 10px; cursor: pointer;">Log In</button>
-            </nav>
+        <div class="logo-section">
+            <img src="icon/Bikemill logo.jpg" alt="PEDALPOWER Logo" style="width: 300px; height: auto; margin-bottom: 0.5rem;">
+            <p>Power to pedal your Desires</p>
         </div>
+        <nav>
+            <button class="nav-button">Sign In</button>
+            <button class="nav-button">Log In</button>
+        </nav>
     </header>
     <!-- Sign In Modal -->
     <div id="signin-modal" class="modal">
